@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.operators.dummy import DummyOperator
+from airflow.operators.empty import EmptyOperator
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 
@@ -23,7 +23,7 @@ with DAG(
     description='A simple Airflow 3.0.2 DAG with no external dependencies',
     tags=['example', 'simple'],
 ) as dag:
-    start = DummyOperator(task_id='start')
+    start = EmptyOperator(task_id='start')
 
     hello = PythonOperator(
         task_id='say_hello',
@@ -40,6 +40,6 @@ with DAG(
         python_callable=print_goodbye
     )
 
-    end = DummyOperator(task_id='end')
+    end = EmptyOperator(task_id='end')
 
     start >> hello >> bash_task >> goodbye >> end
