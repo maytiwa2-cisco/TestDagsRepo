@@ -13,7 +13,7 @@ def print_goodbye():
 with DAG(
     dag_id='simple_example_dag',
     start_date=datetime(2023, 1, 1),
-    schedule_interval=None,
+    schedule=None,
     catchup=False,
     default_args={
         'owner': 'airflow',
