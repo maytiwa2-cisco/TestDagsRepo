@@ -1,5 +1,8 @@
 from airflow.decorators import dag, task
 from datetime import datetime
+import logging
+
+logger = logging.getLogger(__name__)
 
 @dag(
     dag_id="nmap_kubernetes_multi_scan",
@@ -42,6 +45,7 @@ def nmap_kubernetes_multi_scan():
     def aggregate_results(scan_results: list):
         """Aggregate all scan results"""
         print(f"Processed {len(scan_results)} scans")
+        logger.info(f"Scan Results: {scan_results}")
         return {
             "total_scans": len(scan_results),
             "results": scan_results
