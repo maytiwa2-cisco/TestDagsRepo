@@ -15,7 +15,7 @@ def nmap_kubernetes_multi_scan():
     @task.kubernetes(
         image="instrumentisto/nmap:latest",
         name="nmap-scan",
-        namespace="default",
+        namespace="airflow",
     )
     def run_nmap_scan(target: str):
         import subprocess
