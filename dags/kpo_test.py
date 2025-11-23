@@ -1,3 +1,6 @@
+from airflow.decorators import dag, task
+from datetime import datetime
+
 @dag(
     dag_id="nmap_kubernetes_multi_scan",
     start_date=datetime(2023, 1, 1),
