@@ -22,6 +22,7 @@ def nmap_kubernetes_multi_scan():
         image="mayankt23/airflow-nmap:latest",
         name="nmap-scan",
         namespace="airflow",
+        do_xcom_push=True
     )
     def run_nmap_scan(target: str):
         import subprocess
