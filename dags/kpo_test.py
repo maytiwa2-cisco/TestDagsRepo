@@ -54,6 +54,6 @@ def nmap_kubernetes_multi_scan():
     # Dynamic task mapping - creates one pod per target
     targets = get_scan_targets()
     scans = run_nmap_scan.expand(target=targets)
-    final = aggregate_results(scans)
+    final = aggregate_results(scans.gather())
 
 nmap_kubernetes_multi_scan()
