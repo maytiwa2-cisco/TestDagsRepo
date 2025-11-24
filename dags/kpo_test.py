@@ -15,8 +15,8 @@ def nmap_kubernetes_multi_scan():
     
     @task
     def get_scan_targets():
-        """Return list of targets to scan"""
-        return ["scanme.nmap.org", "example.com", "testsite.com"]
+        """Return target to scan"""
+        return "scanme.nmap.org"
     
     @task.kubernetes(
         image="mayankt23/airflow-nmap:latest",
@@ -42,18 +42,13 @@ def nmap_kubernetes_multi_scan():
         }
     
     @task
-    def aggregate_results(scan_results: list):
-        """Aggregate all scan results"""
-        print(f"Processed {len(scan_results)} scans")
-        logger.info(f"Scan Results: {scan_results}")
-        return {
-            "total_scans": len(scan_results),
-            "results": scan_results
-        }
+    def aggregate_results(scan_results: dict):
+        logger.info(f"Scan Results: {scan_results["scan_results"]} for target {scan_results["target"]}")
+        return scan_results["scan_results"]
     
     # Dynamic task mapping - creates one pod per target
-    targets = get_scan_targets()
-    scans = run_nmap_scan.expand(target=targets)
-    final = aggregate_results(scans.gather())
+    target = get_scan_targets()
+    scans = run_nmap_scan(target)
+    final = aggregate_results(scans)
 
 nmap_kubernetes_multi_scan()
