@@ -19,7 +19,7 @@ def nmap_kubernetes_multi_scan():
         return ["scanme.nmap.org", "example.com", "testsite.com"]
     
     @task.kubernetes(
-        image="instrumentisto/nmap:latest",
+        image="mayankt23/airflow-nmap:latest",
         name="nmap-scan",
         namespace="airflow",
     )
