@@ -27,6 +27,11 @@ def nmap_kubernetes_multi_scan():
     def run_nmap_scan(target: str):
         import subprocess
         import json
+        import logging
+
+        logger = logging.getLogger(__name__)
+
+        logger.info(f"Scanning target: {target}")
         
         result = subprocess.run(
             ["nmap", "-sV", "-oX", "-", target],
