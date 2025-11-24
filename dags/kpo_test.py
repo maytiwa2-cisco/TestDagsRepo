@@ -33,6 +33,8 @@ def nmap_kubernetes_multi_scan():
             text=True,
             check=True
         )
+
+        logger.info(f"Scan Results: {result.stdout}")
         
         return {
             "status": "completed",
